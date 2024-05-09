@@ -4,9 +4,10 @@ import "./style.css";
 export interface WordboxProps {
   word: string;
   isActive: boolean;
+  onError?: () => void;
 }
 
-export const Wordbox: React.FC<WordboxProps> = ({ word, isActive }) => {
+export const Wordbox: React.FC<WordboxProps> = ({ word, isActive, onError }) => {
   const [lettersLeft, setLettersLeft] = useState<string>(word);
   const [isError, setIsError] = useState<boolean>(false);
   useEffect(() => {
@@ -17,6 +18,8 @@ export const Wordbox: React.FC<WordboxProps> = ({ word, isActive }) => {
       const isCorrect = e.key.toLowerCase() === lettersLeft[0].toLowerCase();
       if (isCorrect) {
         setLettersLeft(lettersLeft.slice(1, lettersLeft.length));
+      } else if (onError) {
+        onError();
       }
       setIsError(!isCorrect);
     };
