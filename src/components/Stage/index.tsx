@@ -21,6 +21,18 @@ const Stage = () => {
   const [errors, setErrors] = useState<number>(0);
 
   const errorIncrement = () => setErrors((n) => n + 1);
+  const finishWord = () => {
+    const newWord = generateWord(6);
+    setWords((oldWords) => {
+      if (!oldWords.length) {
+        return [];
+      }
+      return [
+        ...oldWords.slice(1, oldWords.length),
+        ...(newWord ? [newWord] : []),
+      ];
+    });
+  };
 
   return (
     <div className="stage">
@@ -32,6 +44,7 @@ const Stage = () => {
             key={word}
             isActive={i === 0}
             onError={errorIncrement}
+            onFinish={finishWord}
           />
         ))}
       </div>
