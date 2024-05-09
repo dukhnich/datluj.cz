@@ -17,7 +17,11 @@ const generateWord = (size: number | undefined) => {
 };
 
 const Stage = () => {
-  const [words, setWords] = useState<string[]>(["jahoda"]);
+  const [words, setWords] = useState<string[]>([
+    generateWord(6) || "jahoda",
+    generateWord(6) || "hruška",
+    generateWord(6) || "jablko",
+  ]);
   const [errors, setErrors] = useState<number>(0);
 
   const errorIncrement = () => setErrors((n) => n + 1);
