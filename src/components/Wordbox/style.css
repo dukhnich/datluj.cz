@@ -17,3 +17,8 @@
   background-color: #e64747;
   color: white;
 }
+
+.wordbox--active {
+  outline: 2px solid #555;
+  outline-offset: 2px;
+}

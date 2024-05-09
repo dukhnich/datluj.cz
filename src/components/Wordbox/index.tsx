@@ -25,7 +25,13 @@ export const Wordbox: React.FC<WordboxProps> = ({ word, isActive }) => {
   }, [lettersLeft, isActive]);
 
   return (
-    <div className={`wordbox${isError ? " wordbox--mistake" : ""}`}>
+    <div
+      className={`wordbox${
+        isError ? " wordbox--mistake" : ""
+      }${
+        isActive ? " wordbox--active" : ""
+      }`}
+    >
       {lettersLeft}
     </div>
   );
