@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Wordbox from '../Wordbox';
 import wordList from '../../word-list';
 import './style.css';
 
-const generateWord = (size) => {
+const generateWord = (size: number | undefined) => {
   const sizeIndex = size === undefined
     ? Math.floor(Math.random() * wordList.length)
     : size - 3;
@@ -18,7 +18,7 @@ const generateWord = (size) => {
 };
 
 const Stage = () => {
-  const [words, setWords] = useState(['jahoda']);
+  const [words, setWords] = useState<string[]>(['jahoda']);
 
   return (
     <div className="stage">
