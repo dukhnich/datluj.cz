@@ -6,7 +6,7 @@ import "./style.css";
 const App = () => {
   return (
     <div className="container">
-      <h1>Datlování</h1>
+      <h1 className="title">Datlování</h1>
       <Stage />
     </div>
   );
