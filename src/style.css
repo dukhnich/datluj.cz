@@ -7,15 +7,15 @@
 
 html {
   font-family: "Open Sans", sans-serif;
+  --primary-dark-1: #101922;
+  --primary-selection-1: #628ea7;
+  --primary-error-1: #a65487;
 }
 body {
-  background-color: #000815;
-  background-image: url(assets/background.jpeg);
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
+  background-color: var(--primary-dark-1);
   height: 100vh;
   overflow: hidden;
+  margin: 0;
 }
 
 .container {
@@ -30,9 +30,24 @@ body {
   font-family: "Rum Raisin", sans-serif;
   color: white;
   text-align: center;
-  font-size: 4rem;
-  background: #000815;
   padding: 4px 16px;
   border-radius: 16px;
   border: 2px solid white;
+  font-size: 2rem;
+  background: var(--primary-dark-1);
+  margin: 0;
+}
+
+.title--main {
+  font-size: 4rem;
+}
+
+.title--errors {
+  background: var(--primary-error-1);
+  align-self: flex-end;
+}
+
+.title--results {
+  background: var(--primary-selection-1);
+  align-self: flex-start;
 }

@@ -23,10 +23,12 @@ const Stage = () => {
     generateWord(6) || "jablko",
   ]);
   const [errors, setErrors] = useState<number>(0);
+  const [results, setResults] = useState<number>(0);
 
   const errorIncrement = () => setErrors((n) => n + 1);
   const finishWord = () => {
     const newWord = generateWord(6);
+    setResults(results + 1);
     setWords((oldWords) => {
       if (!oldWords.length) {
         return [];
@@ -40,17 +42,25 @@ const Stage = () => {
 
   return (
     <div className="stage">
-      <div className="stage__mistakes">Chyb: {errors}</div>
-      <div className="stage__words">
-        {words.map((word, i) => (
-          <Wordbox
-            word={word}
-            key={word}
-            isActive={i === 0}
-            onError={errorIncrement}
-            onFinish={finishWord}
-          />
-        ))}
+      <div className="results">
+        <h2 className="title title--results">Sklizeň: {results}</h2>
+      </div>
+      <main className="main container">
+        <h1 className="title title--main">Datlování</h1>
+        <div className="words">
+          {words.map((word, i) => (
+            <Wordbox
+              word={word}
+              key={word}
+              isActive={i === 0}
+              onError={errorIncrement}
+              onFinish={finishWord}
+            />
+          ))}
+        </div>
+      </main>
+      <div className="mistakes">
+        <h2 className="title title--errors">Chyb: {errors}</h2>
       </div>
     </div>
   );

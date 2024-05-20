@@ -4,12 +4,7 @@ import Stage from "./components/Stage";
 import "./style.css";
 
 const App = () => {
-  return (
-    <div className="container">
-      <h1 className="title">Datlování</h1>
-      <Stage />
-    </div>
-  );
+  return <Stage />;
 };
 createRoot(document.getElementById("app")!).render(
   <React.StrictMode>

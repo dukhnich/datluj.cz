@@ -2,7 +2,7 @@
   display: inline-block;
   position: relative;
   padding: 16px;
-  background-color: #628ea7;
+  background-color: var(--primary-selection-1);
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;
@@ -10,11 +10,11 @@
   line-height: 16px;
   border-radius: 8px;
   z-index: 1;
-  color: #000815;
+  color: var(--primary-dark-1);
 }
 
 .wordbox--mistake {
-  background-color: #5d2a49;
+  background-color: var(--primary-error-1);
   color: white;
 }
 

@@ -1,20 +1,39 @@
 .stage {
-  height: 340px;
-  padding: 32px;
-  margin: 32px auto;
   border-radius: 8px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: space-between;
 }
 
-.stage__mistakes {
-  text-align: center;
-  margin-bottom: 64px;
+.main {
+  flex-grow: 1;
+  padding: 20px 12px;
+  background-image: url(../../assets/background2.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
-.stage__words {
+.results,
+.mistakes {
+  color: white;
+  width: 300px;
+  background: var(--primary-dark-1);
+  padding: 20px 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.words {
   display: flex;
   flex-direction: column-reverse;
   justify-content: center;
   flex-wrap: wrap;
   align-items: center;
   gap: 12px;
+  height: 300px;
+  width: 300px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  margin: auto;
 }
