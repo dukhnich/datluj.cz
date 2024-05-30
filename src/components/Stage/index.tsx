@@ -16,16 +16,78 @@ const generateWord = (size: number | undefined) => {
   return words[wordIndex];
 };
 
+const abeceda = [
+  "a",
+  "á",
+  "b",
+  "c",
+  "č",
+  "d",
+  "ď",
+  "e",
+  "é",
+  "ě",
+  "f",
+  "g",
+  "h",
+  "i",
+  "í",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "ň",
+  "o",
+  "ó",
+  "p",
+  "q",
+  "r",
+  "ř",
+  "s",
+  "š",
+  "t",
+  "ť",
+  "u",
+  "ú",
+  "ů",
+  "v",
+  "w",
+  "x",
+  "y",
+  "ý",
+  "z",
+  "ž",
+];
+
+interface errorLetter {
+  letter: string;
+  errors: number;
+}
+
 const Stage = () => {
   const [words, setWords] = useState<string[]>([
     generateWord(6) || "jahoda",
     generateWord(6) || "hruška",
     generateWord(6) || "jablko",
   ]);
-  const [errors, setErrors] = useState<number>(0);
+  const [errors, setErrors] = useState<errorLetter[]>(
+    abeceda.map((l) => ({ letter: l, errors: 0 }))
+  );
   const [results, setResults] = useState<number>(0);
 
-  const errorIncrement = () => setErrors((n) => n + 1);
+  const errorIncrement = (letter: string) => {
+    const index = abeceda.indexOf(letter);
+    if (index === -1) {
+      return;
+    }
+    setErrors((oldErrors) => [
+      ...oldErrors.slice(0, index),
+      { letter: oldErrors[index].letter, errors: oldErrors[index].errors + 1 },
+      ...oldErrors.slice(index + 1, oldErrors.length),
+    ]);
+  };
+  const errorsCount = errors.reduce((n, letter) => n + letter.errors, 0);
   const finishWord = () => {
     const newWord = generateWord(6);
     setResults(results + 1);
@@ -60,7 +122,16 @@ const Stage = () => {
         </div>
       </main>
       <div className="mistakes">
-        <h2 className="title title--errors">Chyb: {errors}</h2>
+        <h2 className="title title--errors">Chyb: {errorsCount}</h2>
+        <div className="mistakes__list">
+          {[...errors]
+            .sort((a, b) => b.errors - a.errors)
+            .map((error) => (
+              <p key={error.letter}>
+                {error.letter}: <span>{error.errors}</span>
+              </p>
+            ))}
+        </div>
       </div>
     </div>
   );

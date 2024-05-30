@@ -4,7 +4,7 @@ import "./style.css";
 export interface WordboxProps {
   word: string;
   isActive?: boolean;
-  onError?: () => void;
+  onError?: (letter: string) => void;
   onFinish?: () => void;
 }
 
@@ -29,7 +29,7 @@ export const Wordbox: React.FC<WordboxProps> = ({
         }
         setLettersLeft(lettersLeft.slice(1, lettersLeft.length));
       } else if (onError) {
-        onError();
+        onError(e.key.toLowerCase());
       }
       setIsError(!isCorrect);
     };

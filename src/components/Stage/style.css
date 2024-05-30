@@ -23,6 +23,11 @@
   display: flex;
   flex-direction: column;
 }
+.mistakes__list {
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  margin-top: 20px;
+}
 
 .words {
   display: flex;
