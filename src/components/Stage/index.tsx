@@ -87,7 +87,13 @@ const Stage = () => {
       ...oldErrors.slice(index + 1, oldErrors.length),
     ]);
   };
-  const errorsCount = errors.reduce((n, letter) => n + letter.errors, 0);
+  const filteredErrors = errors
+    .filter((l) => Boolean(l.errors))
+    .sort((a, b) => b.errors - a.errors);
+  const errorsCount = filteredErrors.reduce(
+    (n, letter) => n + letter.errors,
+    0
+  );
   const finishWord = () => {
     const newWord = generateWord(6);
     setResults(results + 1);
@@ -124,13 +130,11 @@ const Stage = () => {
       <div className="mistakes">
         <h2 className="title title--errors">Chyb: {errorsCount}</h2>
         <div className="mistakes__list">
-          {[...errors]
-            .sort((a, b) => b.errors - a.errors)
-            .map((error) => (
-              <p key={error.letter}>
-                {error.letter}: <span>{error.errors}</span>
-              </p>
-            ))}
+          {filteredErrors.map((error) => (
+            <p key={error.letter}>
+              {error.letter}: <span>{error.errors}</span>
+            </p>
+          ))}
         </div>
       </div>
     </div>
