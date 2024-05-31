@@ -74,7 +74,7 @@ const Stage = () => {
   const [errors, setErrors] = useState<errorLetter[]>(
     abeceda.map((l) => ({ letter: l, errors: 0 }))
   );
-  const [results, setResults] = useState<number>(0);
+  const [results, setResults] = useState<string[]>([]);
 
   const errorIncrement = (letter: string) => {
     const index = abeceda.indexOf(letter);
@@ -96,7 +96,9 @@ const Stage = () => {
   );
   const finishWord = () => {
     const newWord = generateWord(6);
-    setResults(results + 1);
+    if (words.length) {
+      setResults((r) => [...r, words[0]]);
+    }
     setWords((oldWords) => {
       if (!oldWords.length) {
         return [];
@@ -111,7 +113,12 @@ const Stage = () => {
   return (
     <div className="stage">
       <div className="results">
-        <h2 className="title title--results">Sklizeň: {results}</h2>
+        <h2 className="title title--results">Sklizeň: {results.length}</h2>
+        <div className="mistakes__list">
+          {results.map((r) => (
+            <p key={r}>{r}</p>
+          ))}
+        </div>
       </div>
       <main className="main container">
         <h1 className="title title--main">Datlování</h1>
