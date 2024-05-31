@@ -3,6 +3,10 @@ import Wordbox from "../Wordbox";
 import wordList from "../../word-list";
 import "./style.css";
 
+const levelsCount = wordList.length;
+const minLength = wordList[0][0].length;
+const wordsInLevel = 3;
+
 const generateWord = (size: number | undefined) => {
   const sizeIndex =
     size === undefined ? Math.floor(Math.random() * wordList.length) : size - 3;
@@ -66,10 +70,12 @@ interface errorLetter {
 }
 
 const Stage = () => {
+  const [level, setLevel] = useState(0);
+  const [levelProgress, setLevelProgress] = useState(0);
   const [words, setWords] = useState<string[]>([
-    generateWord(6) || "jahoda",
-    generateWord(6) || "hruška",
-    generateWord(6) || "jablko",
+    generateWord(level + minLength) || "jahoda",
+    generateWord(level + minLength) || "hruška",
+    generateWord(level + minLength) || "jablko",
   ]);
   const [errors, setErrors] = useState<errorLetter[]>(
     abeceda.map((l) => ({ letter: l, errors: 0 }))
@@ -95,13 +101,23 @@ const Stage = () => {
     0
   );
   const finishWord = () => {
-    const newWord = generateWord(6);
+    let length = level === levelsCount ? undefined : level + minLength;
+    if (length && levelProgress + words.length >= wordsInLevel) {
+      length += 1;
+    }
+    const newWord = generateWord(length);
     if (words.length) {
       setResults((r) => [...r, words[0]]);
+      if (levelProgress + 1 < wordsInLevel) {
+        setLevelProgress((oldN) => oldN + 1);
+      } else if (level < levelsCount) {
+        setLevel((oldN) => oldN + 1);
+        setLevelProgress(0);
+      }
     }
     setWords((oldWords) => {
       if (!oldWords.length) {
-        return [];
+        return newWord ? [newWord] : [];
       }
       return [
         ...oldWords.slice(1, oldWords.length),
@@ -121,7 +137,15 @@ const Stage = () => {
         </div>
       </div>
       <main className="main container">
-        <h1 className="title title--main">Datlování</h1>
+        <header className="header">
+          <h1 className="title title--main">Datlování</h1>
+          <p className="level">
+            Úroveň {level + 1}
+            <span className="level__progress">
+              {levelProgress} / {wordsInLevel}
+            </span>
+          </p>
+        </header>
         <div className="words">
           {words.map((word, i) => (
             <Wordbox
