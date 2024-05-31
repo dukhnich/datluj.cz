@@ -5,7 +5,7 @@ import "./style.css";
 
 const levelsCount = wordList.length;
 const minLength = wordList[0][0].length;
-const wordsInLevel = 3;
+const wordsInLevel = 5;
 
 const generateWord = (size: number | undefined) => {
   const sizeIndex =
