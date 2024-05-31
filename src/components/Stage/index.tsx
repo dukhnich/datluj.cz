@@ -130,7 +130,7 @@ const Stage = () => {
     <div className="stage">
       <div className="results">
         <h2 className="title title--results">Sklizeň: {results.length}</h2>
-        <div className="mistakes__list">
+        <div className="list">
           {results.map((r) => (
             <p key={r}>{r}</p>
           ))}
@@ -141,9 +141,11 @@ const Stage = () => {
           <h1 className="title title--main">Datlování</h1>
           <p className="level">
             Úroveň {level + 1}
-            <span className="level__progress">
-              {levelProgress} / {wordsInLevel}
-            </span>
+            {level === levelsCount ? null : (
+              <span className="level__progress">
+                {levelProgress} / {wordsInLevel}
+              </span>
+            )}
           </p>
         </header>
         <div className="words">
@@ -160,10 +162,11 @@ const Stage = () => {
       </main>
       <div className="mistakes">
         <h2 className="title title--errors">Chyb: {errorsCount}</h2>
-        <div className="mistakes__list">
+        <div className="list list--errors">
           {filteredErrors.map((error) => (
-            <p key={error.letter}>
-              {error.letter}: <span>{error.errors}</span>
+            <p className="error_letter" key={error.letter}>
+              {error.letter}{" "}
+              <span className="error__count">{error.errors}</span>
             </p>
           ))}
         </div>
